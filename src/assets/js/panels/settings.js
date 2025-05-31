@@ -140,7 +140,23 @@ class Settings {
 
         if (totalMem < ram.ramMin) {
             config.java_config.java_memory = { min: 1, max: 2 };
-            this.db.updateData('configClient', config);
+            const oldConfig = await this.db.readData('configClient');
+
+config = {
+    ...oldConfig,
+    ...config,
+    java_config: {
+        ...oldConfig?.java_config,
+        ...config?.java_config,
+        java_memory: {
+            min: parseInt(document.getElementById('ramMinInput')?.value || oldConfig?.java_config?.java_memory?.min || 2),
+            max: parseInt(document.getElementById('ramMaxInput')?.value || oldConfig?.java_config?.java_memory?.max || 4)
+        }
+    },
+    username: document.getElementById('usernameInput')?.value || oldConfig?.username || ''
+};
+
+await this.db.updateData('configClient', config);
             ram = { ramMin: "1", ramMax: "2" }
         };
 
@@ -157,7 +173,23 @@ class Settings {
             minSpan.setAttribute("value", `${min} Go`);
             maxSpan.setAttribute("value", `${max} Go`);
             config.java_config.java_memory = { min: min, max: max };
-            this.db.updateData('configClient', config);
+            const oldConfig = await this.db.readData('configClient');
+
+config = {
+    ...oldConfig,
+    ...config,
+    java_config: {
+        ...oldConfig?.java_config,
+        ...config?.java_config,
+        java_memory: {
+            min: parseInt(document.getElementById('ramMinInput')?.value || oldConfig?.java_config?.java_memory?.min || 2),
+            max: parseInt(document.getElementById('ramMaxInput')?.value || oldConfig?.java_config?.java_memory?.max || 4)
+        }
+    },
+    username: document.getElementById('usernameInput')?.value || oldConfig?.username || ''
+};
+
+await this.db.updateData('configClient', config);
         });
     }
 
