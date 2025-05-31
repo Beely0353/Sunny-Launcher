@@ -20,6 +20,22 @@ class Splash {
         document.addEventListener('DOMContentLoaded', async () => {
             let databaseLauncher = new database();
             let configClient = await databaseLauncher.readData('configClient');
+
+if (configClient) {
+    const pseudo = configClient.username;
+    const ramMax = configClient.java_config?.java_memory?.max;
+    const ramMin = configClient.java_config?.java_memory?.min;
+
+    if (pseudo && document.getElementById('usernameInput'))
+        document.getElementById('usernameInput').value = pseudo;
+
+    if (document.getElementById('ramMinInput') && ramMin)
+        document.getElementById('ramMinInput').value = ramMin;
+
+    if (document.getElementById('ramMaxInput') && ramMax)
+        document.getElementById('ramMaxInput').value = ramMax;
+}
+
             let theme = configClient?.launcher_config?.theme || "auto"
             let isDarkTheme = await ipcRenderer.invoke('is-dark-theme', theme).then(res => res)
             document.body.className = isDarkTheme ? 'dark global' : 'light global';
