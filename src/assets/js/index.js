@@ -28,32 +28,11 @@ class Splash {
         });
     }
 
-    async initRamSettings(db, configClient) {
-        try {
-            this.setStatus(`Initialisation des paramètres de RAM...`);
-            let totalMem = Math.trunc(os.totalmem() / 1073741824 * 10) / 10; // Mémoire totale en Go
-            let ram = configClient?.java_config?.java_memory || { min: 1, max: 2 };
-
-            if (!ram.min || !ram.max || totalMem < ram.min || ram.max > Math.trunc((80 * totalMem) / 100)) {
-                ram = { min: 1, max: Math.min(2, Math.trunc((80 * totalMem) / 100)) }; // Par défaut : 1 Go min, 2 Go max ou 80% du total
-                configClient.java_config = configClient.java_config || {};
-                configClient.java_config.java_memory = ram;
-                await db.updateData('configClient', configClient);
-                this.setStatus(`Paramètres de RAM initialisés : ${ram.min} Go - ${ram.max} Go`);
-            } else {
-                this.setStatus(`Paramètres de RAM chargés : ${ram.min} Go - ${ram.max} Go`);
-            }
-        } catch (err) {
-            console.error("Erreur lors de l'initialisation des paramètres de RAM :", err);
-            this.setStatus(`Erreur lors de l'initialisation de la RAM`);
-        }
-    }
-
     async startAnimation() {
         let splashes = [
-            { "message": "Je... vie...", "author": "Luuxis" },
-            { "message": "Salut je suis du code.", "author": "Luuxis" },
-            { "message": "Linux n'est pas un os, mais un kernel.", "author": "Luuxis" },
+            { "message": "L'important c'est l'essentiel et c'est ca le principal.", "author": "Inconnu" },
+            { "message": "...", "author": "Un muet" },
+            { "message": "Ya pas de paneau.", "author": "Snapchat" },
             { "message": "Allo Salem.", "author": "Beely" }
         ];
         let splash = splashes[Math.floor(Math.random() * splashes.length)];
