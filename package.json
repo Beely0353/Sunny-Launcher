@@ -1,7 +1,7 @@
 {
   "name": "Sunny-Launcher",
   "preductname": "Sunny Launcher",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Launcher Mincraft pour le serveur Sunny",
   "main": "src/app.js",
   "author": {
